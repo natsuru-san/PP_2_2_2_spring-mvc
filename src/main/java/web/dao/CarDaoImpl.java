@@ -4,9 +4,10 @@ import org.springframework.stereotype.Component;
 import web.model.Car;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
-public class CarDaoImpl implements CarDao<Car> {
+public class CarDaoImpl implements CarDao {
 
     private final List<Car> cars = new ArrayList<>(); //Цей список - імітація бази даних
 
@@ -21,6 +22,10 @@ public class CarDaoImpl implements CarDao<Car> {
     }
 
     @Override
+    public List<Car> getListCars(int quantity) {
+        return cars.stream().limit(quantity).collect(Collectors.toList());
+    }
+    @Override
     public List<Car> getListCars() {
         return cars;
     }
@@ -32,7 +37,7 @@ public class CarDaoImpl implements CarDao<Car> {
 
     @Override
     public void saveCar(String series, String model, int serialNumber) {
-        cars.add(new Car(series, model, serialNumber));
+        saveCar(new Car(series, model, serialNumber));
     }
 
     @Override

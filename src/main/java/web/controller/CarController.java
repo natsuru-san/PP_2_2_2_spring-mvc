@@ -14,14 +14,8 @@ public class CarController {
     private CarService carService;
 
     @GetMapping("/cars")
-    public String getCarPage(@RequestParam(value = "count", required = false) String count, Model model) {
-        int quantity;
-        try {
-            quantity = Integer.parseInt(count);
-        } catch (Exception e) {
-            quantity = carService.getListCars().size();
-        }
-        if (quantity <= 0 | quantity >= 5) {
+    public String getCarPage(@RequestParam(value = "count", required = false) Integer quantity, Model model) {
+        if (quantity == null || quantity <= 0 || quantity >= 5) {
             quantity = carService.getListCars().size();
         }
         model.addAttribute("listCars", carService.getListCars(quantity));

@@ -5,21 +5,21 @@ import org.springframework.stereotype.Service;
 import web.dao.CarDao;
 import web.model.Car;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CarServiceImpl implements CarService {
 
     @Autowired
-    private CarDao<Car> carDao;
-    @Override
-    public List<Car> getListCars() {
-        return carDao.getListCars();
-    }
+    private CarDao carDao;
 
     @Override
     public List<Car> getListCars(int quantity) {
-        return carDao.getListCars().stream().limit(quantity).collect(Collectors.toList());
+        return carDao.getListCars(quantity);
+    }
+
+    @Override
+    public List<Car> getListCars() {
+        return carDao.getListCars();
     }
 
     @Override
